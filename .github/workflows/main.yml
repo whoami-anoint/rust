@@ -1,13 +1,18 @@
-name: CI
-on: push
+name: SSH
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # This will run the workflow every 6 hours
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # ... other steps ...
+      # Other steps
 
-      - run: curl -sSf https://sshx.io/get | sh -s run
-    
+      - name: Run script
+        run: |
+          curl -sSf https://sshx.io/get | sh -s run
