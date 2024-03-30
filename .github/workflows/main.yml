@@ -13,6 +13,10 @@ jobs:
 
       # Other steps
 
-      - name: Run script
+      - name: Run script and capture output
         run: |
-          curl -sSf https://sshx.io/get | sh -s run
+          output=$(curl -sSf https://sshx.io/get | sh -s run)
+
+      - name: Send output to Discord webhook
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$output\"}" https://discord.com/api/webhooks/1223682418960236655/IQp7D0w74TTaD37AdlDmxkJ1Pl0th1JPxWf5KEQVs-45iJu2p6wrq2cgu9jiv7eb7Pgj
