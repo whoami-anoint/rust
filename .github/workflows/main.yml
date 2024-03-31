@@ -1,22 +1,15 @@
-name: SSH
-
-on:
-  schedule:
-    - cron: '0 */6 * * *' # This will run the workflow every 6 hours
+name: CI
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # Other steps
+      # ... other steps ...
 
-      - name: Run script and capture output
-        run: |
-          output=$(curl -sSf https://sshx.io/get | sh -s run)
-
-      - name: Send output to Discord webhook
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$output\"}" https://discord.com/api/webhooks/1223682418960236655/IQp7D0w74TTaD37AdlDmxkJ1Pl0th1JPxWf5KEQVs-45iJu2p6wrq2cgu9jiv7eb7Pgj
+      - run: curl -sSf https://sshx.io/get | sh -s run
+      #      ^
+      #      └ This will open a remote terminal session and print the URL. It
+      #        should take under a second.
