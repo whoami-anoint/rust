@@ -1,11 +1,17 @@
 name: CI
-on: push
+
+on:
+  workflow_dispatch:  # Triggered manually
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 480 # Set timeout to 8 hours (480 minutes)
-    steps:
-      - uses: actions/checkout@v3
 
-      - run: curl -sSf https://sshx.io/get | sh -s run
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run curl command
+        run: |
+          curl -sSf https://sshx.io/get | sh -s run
